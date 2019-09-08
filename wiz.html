@@ -1,0 +1,299 @@
+<html>
+
+<head>
+    <title>Scholarship data centers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        .modal-dialog {
+            position: relative;
+            display: table;
+            /* This is important */
+            overflow-y: auto;
+            overflow-x: auto;
+            width: auto;
+            min-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="web-container">
+        <div class="header">
+            <Center>
+                <!-- <a href="" class="logo">
+                </a> -->
+                <h4>
+                    WISH Scholarship Data Center
+                </h4>
+            </Center>
+            <!-- <Center>
+            </Center> -->
+        </div>
+        <div class="logo-container">
+            <img src="./image/wish.png" alt="WISH" style="width:auto;height:3em;">
+        </div>
+        <div id="visualization" class="mapsCanvas">
+        </div>
+        <div class="footer">
+            <div class="logo-footer">
+                <h4>
+                    Our Partner
+                </h4>
+            </div>
+            <div class="logo-footer">
+                <img src="./image/schoterslogo.png" alt="schoters" style="width:auto;height:1em;">
+            </div>
+            <div class="logo-footer">
+                <img src="./image/dtlogo.png" alt="DeepTech" style="width:auto;height:1em;">
+            </div>
+        </div>
+    </div>
+</body>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="modal-continent" class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <table id="scholarship-table" class="table">
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type='text/javascript'>
+    google.load('visualization', '1', {
+        'packages': ['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+    });
+    var rawData = [
+        ['Region code', 'Continent', 'Banyak Beasiswa'],
+        ['142', 'Asia', 24],
+        ['019', 'Amerika', 5],
+        ['150', 'Eropa', 33],
+        ['009', 'Pasifik', 3],
+    ]
+    const scholarshipData = [
+        ["Erasmus +", "Eropa", "", "", "1", "", "delegation-indonesia@eeas.europa.eu"],
+        ["Erasmus Mundus Journalism", "Eropa", "", "", "1", "",
+            "http://mundusjournalism.com/admission/tuition-scholarships/"
+        ],
+        ["Chevening Award", "Eropa", "", "", "", "", "https://www.chevening.org/scholarships/who-can-apply/"],
+        ["British Council : IELTS Dream Big Fund", "Eropa", "", "1", "1", "1",
+            "http://dream-big.ieltsasia.org/en/dream-big-fund.html"
+        ],
+        ["Jardine Foundation", "Eropa", "", "", "1", "", "https://www.jardines.com/en/community/foundation.html"],
+        ["Beasiswa Pemerintah Federasi Rusia", "Eropa", "", "", "1", "",
+            "https://studyinrussia.ru/en/study-in-russia/scholarships/"
+        ],
+        ["Beasiswa STUNED - Master", "Eropa", "", "", "1", "",
+            "http://www.nesoindonesia.or.id/beasiswa/stuned/stuned-master-1"
+        ],
+        ["Beasiswa Orange Tulip Scholarship", "Eropa", "", "1", "1", "1",
+            "http://www.nesoindonesia.or.id/beasiswa/orange-tulip-scholarship"
+        ],
+        ["Holland Scholarship", "Eropa", "", "1", "1", "",
+            "https://www.studyinholland.nl/scholarships/highlighted-scholarships/holland-scholarship/holland-scholarship"
+        ],
+        ["DAAD Indonesia", "Eropa", "", "", "1", "1",
+            "https://www.daad.id/en/find-funding/daad-scholarships-for-indonesia/"
+        ],
+        ["DeutschlandStipendium National Scholarship Programme", "Eropa", "", "", "", "",
+            "https://www.deutschlandstipendium.de/de/english-1700.html"
+        ],
+        ["Heinrich Boll Scholarships in Germany", "Eropa", "", "", "", "",
+            "https://www.boell.de/en/foundation/application"
+        ],
+        ["UNI ITALI", "Eropa", "", "", "1", "1", "http://www.uni-italia.net/scholarship-ita"],
+        ["Beasiswa MAEC-AECI", "Eropa", "", "1", "1", "",
+            "https://ppispanyol.files.wordpress.com/2008/06/deskripsi-becas-maec-aeci1.pdf"
+        ],
+        ["Indonesia Austria Scholarship Programme", "Eropa", "", "", "1", "1", "https://grants.at/en/"],
+        ["Education Ireland", "Eropa", "", "1", "1", "1",
+            "http://www.educationinireland.com/en/How-Do-I-Apply-/Tuition-Costs-Scholarships/Scholarships"
+        ],
+        ["NUI Galway International Student Scholarships", "Eropa", "", "", "", "",
+            "http://www.nuigalway.ie/courses/how-to-apply/"
+        ],
+        ["Flanders : Master Mind Scholarships", "Eropa", "", "", "1", "",
+            "http://www.studyinflanders.be/en/scholarship-programmes/"
+        ],
+        ["VLIR-UOS Scholarships in Belgium for Developing"],
+        ["Countries", "Eropa", "", "", "1", "",
+            "https://www.vliruos.be/en/scholarships/scholarships_in_flanders/scholarships_for_masters_programmes_(icp)/114"
+        ],
+        ["Ignacy Łukasiewicz Scholarship Programme", "Eropa", "", "", "1", "1",
+            "https://nawa.gov.pl/en/nawa/news/320-call-for-applications-4th-edition-of-ignacy-lukasiewicz-scholarship"
+        ],
+        ["Romanian Government Scholarships", "Eropa", "", "1", "1", "1", "https://www.mae.ro/en/node/10251"],
+        ["Scholarships of Estonian Government", "Eropa", "", "1", "1", "1",
+            "http://www.studyinestonia.ee/scholarships-degree-studies"
+        ],
+        ["Czech Republic Government Scholarships", "Eropa", "", "1", "1", "1",
+            "http://www.msmt.cz/eu-and-international-affairs/government-scholarships-developing-countries?lang=2"
+        ],
+        ["Stipendium Hungaricum Scholarship Programme", "Eropa", "", "", "1", "1",
+            "http://studyinhungary.hu/study-in-hungary/menu/stipendium-hungaricum-scholarship-programme"
+        ],
+        ["Swedish Institute Study Scholarships", "Eropa", "", "", "1", "",
+            "https://si.se/en/apply/siss-who-can-apply/"
+        ],
+        ["Study in Sweden", "Eropa", "", "", "", "", "https://studyinsweden.se/scholarships/"],
+        ["Danish Government Scholarships for highly qualified non-EU/EEA students", "Eropa", "", "", "1", "",
+            "http://studyindenmark.dk/study-options/tuition-fees-scholarships/tuition-fees-and-scholarships"
+        ],
+        ["Norwegian Partnership Programme for International Teacher Education (NOTED)", "Eropa", "", "", "1", "",
+            "https://www.siu.no/eng/Programme-information/scholarship-schemes/noted"
+        ],
+        ["International Summer School Scholarships", "Eropa", "", "", "1", "",
+            "http://www.uio.no/english/studies/summerschool/admission/scholarships/"
+        ],
+        ["CIMO Fellowships programme", "Eropa", "", "", "", "1",
+            "http://www.studyinfinland.fi/tuition_and_scholarships/cimo_scholarships/cimo_fellowships"
+        ],
+        ["EIFFEL", "Eropa", "", "", "1", "1", "http://www.indonesie.campusfrance.org/id/node/9463"],
+        ["Swiss Government Excellence Scholarships", "Eropa", "", "", "", "1",
+            "https://www.sbfi.admin.ch/sbfi/en/home/bildung/scholarships-and-grants/swiss-government-excellence-scholarships-for-foreign-scholars-an.html#1582163571"
+        ],
+        ["Nestle MBA Scholarships for Women", "Eropa", "", "", "", "",
+            "https://www.imd.org/mba/financing/one-year-mba-program-scholarships/"
+        ],
+        ["BEASISWA MONBUKAGAKUSHO/ MEXT :", "Asia", "", "", "", "", "https://www.id.emb-japan.go.jp/sch.html"],
+        ["Program Research Students", "Asia", "", "", "", "", "http://www.id.emb-japan.go.jp/sch_rs.html"],
+        ["Undergraduate/Gakubu", "Asia", "", "", "", "", "http://www.id.emb-japan.go.jp/sch_gakubu.html"],
+        ["Program College of Technology (KOSEN)", "Asia", "", "", "", "",
+            "http://www.id.emb-japan.go.jp/sch_kosen.html"
+        ],
+        ["Teacher Training", "Asia", "", "", "", "", "http://www.id.emb-japan.go.jp/sch_tt.html"],
+        ["Program Japanese Studies 2018", "Asia", "", "", "", "", "http://www.id.emb-japan.go.jp/sch_js.html"],
+        ["Chinese Government Scholarships", "Asia", "", "", "", "", ""],
+        ["Chongqing Municipal Government Mayor Scholarship", "Asia", "", "", "", "",
+            "http://www.study-chongqing.org"
+        ],
+        ["Korean Government Scholarship Program (KGSP)", "Asia", "", "", "", "",
+            "http://www.niied.go.kr/eng/contents.do?contentsNo=78&menuNo=349"
+        ],
+        ["ICDF Scholarship", "Asia", "", "", "", "", "http://www.studiditaiwan.org/"],
+        ["Taiwan Scholarship - MOE", "Asia", "", "", "", "",
+            "http://www.studiditaiwan.org/2014/05/program-beasiswa-taiwan-2014_3454.html"
+        ],
+        ["Taiwan Scholarship - MOST", "Asia", "", "", "", "",
+            "http://www.studiditaiwan.org/2014/07/2014-program-beasiswa-taiwan-departemen.html"
+        ],
+        ["His Majesty the King's Scholarships", "Asia", "", "", "", "", "https://www.ait.ac.th/programs/"],
+        ["Her Majesty the Queen's Scholarships", "Asia", "", "", "", "", "https://www.ait.ac.th/programs/"],
+        ["Brunei Darussalam Government Scholarship (BDGS)", "Asia", "", "", "", "",
+            "https://apply.ubd.edu.bn/orbeon/uis-welcome/"
+        ],
+        ["Malaysia International Scholarship (MIS)", "Asia", "", "", "", "", ""],
+        ["ASEAN Scholarships for Indonesia", "Asia", "1", "", "", "",
+            "https://www.moe.gov.sg/admissions/scholarships/asean/indonesia"
+        ],
+        ["ASEAN Undergraduate Scholarships (AUS)", "Asia", "", "", "", "",
+            "http://www.nus.edu.sg/oam/scholarships/freshmen/nsg/scholarship-nsg-aus.html"
+        ],
+        ["General Cultural Scholarships Scheme(GCSS)", "Asia", "", "", "", "",
+            "https://www.indianembassyjakarta.com/index.php/2013-05-20-10-04-25/education2/scholarship/general-scholarship-scheme"
+        ],
+        ["Japan Student Service Organization", "Asia", "", "", "", "",
+            "http://www.jasso.or.id/scholarship/beasiswa.html"
+        ],
+        ["Bosphorus Scholarship Program", "Asia", "", "", "", "",
+            "https://www.turkiyeburslari.gov.tr/en/turkiye-burslari/burs-programlari/"
+        ],
+        ["Ali Kuscu Science and Technology Scholarship", "Asia", "", "", "", "",
+            "https://www.turkiyeburslari.gov.tr/en/turkiye-burslari/burs-programlari/"
+        ],
+        ["Ibni Haldun Social Sciences Scholarship", "Asia", "", "", "", "",
+            "https://www.turkiyeburslari.gov.tr/en/turkiye-burslari/burs-programlari/"
+        ],
+        ["SACM Scholarships", "Asia", "", "", "", "", "https://sacm.org.au/scholarships/"],
+        ["Long-Term Awards (kursus pascasarjana)", "Pasifik", "", "", "1", "",
+            "http://australiaawardsindonesia.org/content/12/long-term-awards"
+        ],
+        ["Endeavour Scholarships and Fellowships", "Pasifik", "", "", "1", "1",
+            "https://internationaleducation.gov.au/Endeavour%20program/Scholarships-and-Fellowships/Pages/default.aspx"
+        ],
+        ["New Zealand ASEAN Scholar Awards (NZAS)", "Pasifik", "", "", "1", "1",
+            "https://www.mfat.govt.nz/en/aid-and-development/scholarships/types-of-scholarships/#asean "
+        ],
+        ["Fulbright Scholarships", "Amerika", "", "", "1", "1",
+            "http://aminef.or.id/grants-for-indonesians/fulbright-programs/scholarship/"
+        ],
+        ["Fulbright Grants for Indonesian Lecturers", "Amerika", "", "", "", "1",
+            "http://aminef.or.id/grants-for-indonesians/fulbright-programs/grants-indonesian-lecturers/fulbright-awards-indonesian-lecturers-ristek-dikti-program-ph-d-degree/"
+        ],
+        ["Vanier Canada Graduate Scholarships", "Amerika", "", "", "", "1",
+            "http://vanier.gc.ca/en/home-accueil.html"
+        ],
+        ["AMEXCID Scholarship", "Amerika", "", "1", "1", "1", ""],
+        ["ICETEX", "Amerika", "", "", "1", "1",
+            "https://portal.icetex.gov.co/Portal/docs/default-source/becas/becas-para-posgrado/call_in_english.pdf"
+        ]
+    ]
+    google.setOnLoadCallback(drawRegionsMap);
+
+    function myClickHandler(geochart) {
+        var selection = geochart.getSelection();
+        if (!selection || selection.length < 1) return;
+        console.log(selection)
+        const continent = rawData[selection[0].row + 1][1];
+        $('#scholarship-table').html('');
+        $('#modal-continent').html(continent);
+        const tableHtml = `<thead>
+                            <tr>
+                                <th>Program Beasiswa</th>
+                                <th>Website</th>
+                            </tr>
+                        </thead>`
+        let totalRow = "";
+        for (const row of scholarshipData) {
+            console.log(row[1])
+            if (row[1] != continent) continue;
+            totalRow += `
+                <tr>
+                    <td>${row[0]}</td>
+                    <td><a href="${row[6]}">${row[6]}</a></td>
+                </tr>
+                `
+        }
+        const body = `<tbody>${totalRow}</tbody>`
+        $('#scholarship-table').append(tableHtml).append(totalRow)
+        $('#myModal').modal('toggle');
+    }
+
+    function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable(rawData);
+        var geochart = new google.visualization.GeoChart(
+            document.getElementById('visualization'));
+        var options = {
+            region: 'world',
+            resolution: 'continents',
+            colorAxis: {colors: ['#62507D', '#051937', '#FFAEDC']},
+            backgroundColor: '#051937',
+            datalessRegionColor: '#051937',
+            legend: 'none',
+            width: '100%',
+            height: '100%'
+        };
+        google.visualization.events.addListener(geochart, 'select', () => myClickHandler(geochart))
+        geochart.draw(data, options);
+
+    };
+</script>
+
+</html>
