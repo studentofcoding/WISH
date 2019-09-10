@@ -25,8 +25,8 @@ body {
     -webkit-box-shadow: 0px 5px 10px 0px #62507D;
     -moz-box-shadow: 0px 5px 10px 0px #62507D;
     box-shadow: 0px 5px 10px 0px #62507D;
-    font-size: 2em;
-    font-weight: 800;
+    font-size: 4vh;
+    font-weight: 600;
     padding: 0.1em;
     z-index: 10;
     width: auto;
@@ -65,18 +65,19 @@ body {
     position: absolute;
     display: flex;
     flex-direction: column;
-    bottom: -15%;
+    bottom: -8vh;
     left: 5%;
     color: white;
     /* -webkit-box-shadow: 0px -5px 10px 0px #62507D;
     -moz-box-shadow: 0px -5px 10px 0px #62507D;
     box-shadow: 0px -5px 10px 0px #62507D; */
-    font-size: 2em;
-    font-weight: 800;
+    font-size: 3vh;
+    font-weight: 500;
     padding: 0.1em;
     z-index: 1;
 }
 
 .logo-footer {
     width: 100%;
+    margin-bottom: -15%;
 }
